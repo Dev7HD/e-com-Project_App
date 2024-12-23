@@ -14,19 +14,19 @@ import java.util.UUID;
 @FeignClient(name = "inventory-service")
 public interface InventoryClient {
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/api/products/{id}")
     @CircuitBreaker(name = "inventory-service", fallbackMethod = "fallbackGetProductById")
     ResponseEntity<Product> getProductById(@PathVariable UUID id);
 
-    @GetMapping("/products/all")
+    @GetMapping("/api/products/all")
     @CircuitBreaker(name = "inventory-service-0", fallbackMethod = "fallbackGetAllProducts")
     ResponseEntity<List<Product>> getAllProducts();
 
-    @PostMapping("/products/{id}/decrement-quantity/{quantity}")
+    @PostMapping("/api/products/{id}/decrement-quantity/{quantity}")
     @CircuitBreaker(name = "inventory-service-1", fallbackMethod = "fallbackDecrementProductQuantity")
     Integer decrementProductQuantity(@PathVariable UUID id,@PathVariable Integer quantity);
 
-    @PostMapping("/products/{id}/increment-quantity")
+    @PostMapping("/api/products/{id}/increment-quantity")
     @CircuitBreaker(name = "inventory-service-2", fallbackMethod = "fallbackIncrementProductQuantity")
     ResponseEntity<?> incrementProductQuantity(@PathVariable UUID id, int quantity);
 
