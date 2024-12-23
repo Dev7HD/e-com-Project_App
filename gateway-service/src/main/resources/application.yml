@@ -1,0 +1,19 @@
+spring:
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+  application:
+    name: gateway-service
+  config:
+    import: optional:configserver:${CONFIG_SERVICE_URL:http://localhost:9999}
+server:
+  port: 8888
