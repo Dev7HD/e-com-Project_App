@@ -3,6 +3,8 @@ package ma.dev7hd.ecominventoryservice.services;
 import lombok.AllArgsConstructor;
 import ma.dev7hd.ecominventoryservice.entities.Product;
 import ma.dev7hd.ecominventoryservice.repositories.ProductRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +27,37 @@ public class ProductServiceImp implements IProductService {
     public ResponseEntity<Product> getProductById(UUID id) {
         Product product = productRepository.findById(id).orElse(null);
         return product != null ? ResponseEntity.ok(product) : ResponseEntity.notFound().build();
+    }
+
+    /**
+     * Retrieves a paginated list of products based on the specified filtering criteria.
+     *
+     * @param id the unique identifier of the product, or null to ignore this criterion
+     * @param name the name of the product, or null to ignore this criterion
+     * @param description the description of the product, or null to ignore this criterion
+     * @param minPrice the minimum price of the product, or null to ignore this criterion
+     * @param maxPrice the maximum price of the product, or null to ignore this criterion
+     * @param minQuantity the minimum available quantity of the product, or null to ignore this criterion
+     * @param maxQuantity the maximum available quantity of the product, or null to ignore this criterion
+     * @param pageable the pagination and sorting information
+     * @return a page containing the products that match the given criteria
+     */
+    @Override
+    public Page<Product> getProductsByCriteria(UUID id, String name, String description, Double minPrice, Double maxPrice, Integer minQuantity, Integer maxQuantity, Pageable pageable) {
+        String productId = id != null ? id.toString().toLowerCase().trim() : null;
+        String productName = name != null ? name.toLowerCase().trim() : null;
+        String productDescription = description != null ? description.toLowerCase().trim() : null;
+
+        return productRepository.getProductsByCriteria(
+                productId,
+                productName,
+                productDescription,
+                minPrice,
+                maxPrice,
+                minQuantity,
+                maxQuantity,
+                pageable
+        );
     }
 
     /**

@@ -4,9 +4,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dcd082f5-5138-43db-9ed3-74900d57bef2" name="Changes" comment="Add README.md file.">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list default="true" id="dcd082f5-5138-43db-9ed3-74900d57bef2" name="Changes" comment="Add e-commerce UI project setup with Keycloak integration&#10;&#10;This commit initializes the e-commerce UI project with Angular, adding Keycloak for authentication and role-based access. It includes core configurations, authentication guards, environment setups, and required dependencies such as Bootstrap and ngx-cookie-service.">
+      <change afterPath="$PROJECT_DIR$/e-com-ui/.editorconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/angular.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/public/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/public/silent-check-sso.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/app.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/app.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/app.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/app.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/app.config.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/app.routes.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/components/products/products.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/components/products/products.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/components/products/products.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/guards/auth-role.guard.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/guards/auth-role.guard.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/models/models.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/src/environments/environment.development.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/src/environments/environment.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/src/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/src/main.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/src/styles.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/tsconfig.app.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/tsconfig.spec.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/h2-databases/inventory-service-h2-db.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/h2-databases/inventory-service-h2-db.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/h2-databases/order-service-h2-db.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/h2-databases/order-service-h2-db.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory-service/src/main/java/ma/dev7hd/ecominventoryservice/InventoryServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/src/main/java/ma/dev7hd/ecominventoryservice/InventoryServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory-service/src/main/java/ma/dev7hd/ecominventoryservice/repositories/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/src/main/java/ma/dev7hd/ecominventoryservice/repositories/ProductRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory-service/src/main/java/ma/dev7hd/ecominventoryservice/services/IProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/src/main/java/ma/dev7hd/ecominventoryservice/services/IProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory-service/src/main/java/ma/dev7hd/ecominventoryservice/services/ProductServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/src/main/java/ma/dev7hd/ecominventoryservice/services/ProductServiceImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory-service/src/main/java/ma/dev7hd/ecominventoryservice/web/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/src/main/java/ma/dev7hd/ecominventoryservice/web/ProductController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +68,8 @@
       <list>
         <option value="Enum" />
         <option value="Interface" />
+        <option value="HTML File" />
+        <option value="TypeScript File" />
         <option value="Class" />
       </list>
     </option>
@@ -42,18 +77,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Dev7HD"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Dev7HD&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Dev7HD/e-com-Project_App.git",
-    "accountId": "3632af14-b0b2-4e86-94a8-c6107a70b585"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Dev7HD/e-com-Project_App.git&quot;,
+    &quot;accountId&quot;: &quot;3632af14-b0b2-4e86-94a8-c6107a70b585&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -63,34 +98,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.ConfigServiceApplication.executor": "Run",
-    "Spring Boot.DiscoveryServiceApplication.executor": "Run",
-    "Spring Boot.GatewayServiceApplication.executor": "Run",
-    "Spring Boot.InventoryServiceApplication.executor": "Run",
-    "Spring Boot.OrderServiceApplication.executor": "Run",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/dev7hd/Devloppement/IdeaProjects/e-com-Project_App",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2992874",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "reference.projectsettings.compiler.annotationProcessors",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ConfigServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.DiscoveryServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.GatewayServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.InventoryServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.OrderServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/dev7hd/Devloppement/IdeaProjects/e-com-Project_App&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;/home/dev7hd/.nvm/versions/node/v22.12.0/bin/node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2992874&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/home/dev7hd/Devloppement/IdeaProjects/e-com-Project_App/e-com-ui/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -118,7 +157,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.OrderServiceApplication">
+  <component name="RunManager" selected="Spring Boot.InventoryServiceApplication">
     <configuration name="ConfigServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="e-com-config-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="ma.dev7hd.ecomconfigservice.ConfigServiceApplication" />
@@ -183,6 +222,9 @@
       <updated>1734889323195</updated>
       <workItem from="1734889324262" duration="6698000" />
       <workItem from="1734978692694" duration="12949000" />
+      <workItem from="1735060923416" duration="14737000" />
+      <workItem from="1735149369848" duration="11035000" />
+      <workItem from="1735160568326" duration="3355000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <option name="closed" value="true" />
@@ -209,6 +251,12 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First commit" />
     <MESSAGE value="Add README.md file." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add README.md file." />
+    <MESSAGE value="Implement keycloak in the UI" />
+    <MESSAGE value="Add e-commerce UI project setup with Keycloak integration&#10;&#10;This commit initializes the e-commerce UI project with Angular, adding Keycloak for authentication and role-based access. It includes core configurations, authentication guards, environment setups, and required dependencies such as Bootstrap and ngx-cookie-service." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add e-commerce UI project setup with Keycloak integration&#10;&#10;This commit initializes the e-commerce UI project with Angular, adding Keycloak for authentication and role-based access. It includes core configurations, authentication guards, environment setups, and required dependencies such as Bootstrap and ngx-cookie-service." />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

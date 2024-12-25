@@ -16,7 +16,7 @@ public class InventoryServiceApplication {
         SpringApplication.run(InventoryServiceApplication.class, args);
     }
 
-    @Bean
+    //@Bean
     CommandLineRunner commandLineRunner(ProductRepository productRepository) {
         return args -> {
             Product product1 = new Product();

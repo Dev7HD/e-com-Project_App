@@ -3,6 +3,9 @@ package ma.dev7hd.ecominventoryservice.web;
 import lombok.AllArgsConstructor;
 import ma.dev7hd.ecominventoryservice.entities.Product;
 import ma.dev7hd.ecominventoryservice.services.IProductService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -91,5 +94,34 @@ public class ProductController {
     @PostMapping(value = "/{id}/decrement-quantity/{quantity}", produces = "application/json")
     Integer decrementProductQuantity(@PathVariable UUID id, @PathVariable Integer quantity) {
         return productService.decrementProductQuantity(id, quantity);
+    }
+
+    /**
+     * Retrieves a paginated list of products matching the given search criteria.
+     *
+     * @param id the unique identifier of the product to search for; can be null
+     * @param name the name of the product to filter by; can be null
+     * @param description the description of the product to filter by; can be null
+     * @param minPrice the minimum price of the products to filter by; can be null
+     * @param maxPrice the maximum price of the products to filter by; can be null
+     * @param minQuantity the minimum quantity of the products to filter by; can be null
+     * @param maxQuantity the maximum quantity of the products to filter by; can be null
+     * @param page the page number for pagination (default is 0)
+     * @param size the size of each page for pagination (default is 10)
+     * @return a page of products that match the search criteria
+     */
+    @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
+    Page<Product> searchProducts(
+            @RequestParam(required = false) UUID id,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String description,
+            @RequestParam(required = false) Double minPrice,
+            @RequestParam(required = false) Double maxPrice,
+            @RequestParam(required = false) Integer minQuantity,
+            @RequestParam(required = false) Integer maxQuantity,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return productService.getProductsByCriteria(id, name, description, minPrice, maxPrice, minQuantity, maxQuantity, Pageable.ofSize(size).withPage(page));
     }
 }
