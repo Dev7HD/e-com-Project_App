@@ -9,14 +9,36 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" routerLink="/">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/products">Products</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/orders" *ngIf="userStateService.userState.role == 'ADMIN'">Orders</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/my-orders" *ngIf="userStateService.userState.role == 'CLIENT'">My orders</a>
+          </li>
         </ul>
         <div class="d-flex">
-          <button *ngIf="keycloak.authenticated" class="btn btn-danger" (click)="logout()">Logout</button>
+          <button routerLink="/cart" type="button" class="btn btn-primary position-relative me-2" *ngIf="keycloak.authenticated">
+            <i class="bi bi-cart-fill"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" *ngIf="orderService.shoppingCart && orderService.shoppingCart.cardProductList.length > 0">
+              {{orderService.shoppingCart.cardProductList.length}}
+              <span class="visually-hidden">shopping cart items</span>
+            </span>
+          </button>
+          <div class="btn-group" *ngIf="keycloak.authenticated">
+            <button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              {{userFullName}} <span class="badge bg-light text-dark">{{userStateService.userState.role}}</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+            </ul>
+          </div>
           <button *ngIf="!keycloak.authenticated" class="btn btn-success" (click)="login()">Login</button>
         </div>
       </div>

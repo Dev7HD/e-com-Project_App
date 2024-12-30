@@ -1,6 +1,66 @@
+<ng-template #newProductModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Product update</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="productFormGroup">
+      <div class="mb-3 row">
+        <label for="staticName" class="col-sm-2 me-2 col-form-label">Name</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="staticName" formControlName="name">
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="inputDescription" class="col-sm-2 me-2 col-form-label">Description</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="inputDescription" formControlName="description">
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="inputPrice" class="col-sm-2 me-2 col-form-label">Price</label>
+        <div class="col-sm-9">
+          <input type="number" class="form-control" id="inputPrice" formControlName="price">
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="inputQuantity" class="col-sm-2 me-2 col-form-label">Quantity</label>
+        <div class="col-sm-9">
+          <input type="number" class="form-control" id="inputQuantity" formControlName="quantity">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-outline-info" (click)="isEditing ? editProduct() : newProduct()" [disabled]="isSaving || productFormGroup.invalid">
+      <span *ngIf="isSaving" class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+      Save
+    </button>
+  </div>
+</ng-template>
+<ng-template #deleteProductModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-delete-product">Delete product</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    Are you sure you want to delete this product?
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-danger" (click)="deleteProduct()">
+      <span *ngIf="isDeleting" class="spinner-border spinner-border-sm me-2 text-white-50" aria-hidden="true"></span>
+      Delete
+    </button>
+    <button type="submit" class="btn btn-danger" (click)="modal.dismiss()">
+      Cancel
+    </button>
+  </div>
+</ng-template>
 <div class="container mt-3">
   <div class="collapse" id="collapseFilter">
-    <div class="card card-body">
+    <div class="card card-body shadow border-0">
+      <h3>Find product by criteria:</h3>
+      <br>
       <div class="form-group">
         <div class="d-flex justify-content-between gap-3">
           <div class="input-group mb-3">
@@ -31,52 +91,74 @@
           </div>
         </div>
         <div class="d-flex justify-content-end gap-3">
-          <button class="btn btn-primary" type="button" [disabled]="isLoading" (click)="search()">
+          <button class="btn btn-primary shadow border-0" type="button" [disabled]="isLoading" (click)="search()">
             <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
             <span *ngIf="isLoading" role="status">Loading...</span>
             <span *ngIf="!isLoading" role="status">Search</span>
           </button>
+          <button class="btn btn-outline-primary shadow border-0" type="button" (click)="reset()">Reset</button>
         </div>
       </div>
     </div>
   </div>
-  <div class="card mt-3">
+  <div class="card mt-3 shadow border-0">
     <div class="card-header d-flex justify-content-between">
-      Products List
-      <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
-        Show/Hide Filters
-      </button>
+      <div class="d-flex align-items-center">
+        <h3 class="me-2">Products List</h3>
+        <div class="d-flex justify-content-center align-items-center gap-3">
+          <div *ngIf="isLoading" class="spinner-border text-info" style="width: 1.5rem; height: 1.5rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button class="btn btn-primary me-2 jus border-0 shadow-sm" type="button" (click)="showModal(newProductModal)">
+          New product
+        </button>
+        <button class="btn btn-outline-primary border-0 shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+          Show/Hide Filters
+        </button>
+      </div>
     </div>
     <div class="card-body">
       <ngb-alert *ngIf="isEmpty && !isLoading" [dismissible]="false">
         <strong>Oops!</strong> No products found.
       </ngb-alert>
-      <div class="d-flex justify-content-center gap-3 mt-3">
-        <div *ngIf="isLoading" class="spinner-grow text-info" style="width: 3rem; height: 3rem;" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
-      </div>
-      <table *ngIf="!isLoading && !isEmpty" class="table">
+      <table *ngIf="!isEmpty" class="table">
         <thead>
         <tr>
-          <th>#</th>
           <th>Name</th>
           <th>Price</th>
           <th>Quantity in storage</th>
           <th>Description</th>
+          <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let product of products.content">
-          <td>{{product.id}}</td>
           <td>{{product.name}}</td>
           <td>{{product.price}} DHs</td>
           <td>{{product.quantity}}</td>
           <td>{{product.description}}</td>
+          <td>
+            <div class="btn-group shadow border-0" role="group" aria-label="Basic mixed styles example" >
+              <button (click)="showModalEditProduct(product, newProductModal)" class="btn btn-primary" placement="top" ngbTooltip="Edit product" *ngIf="userStateService.userState.role == 'ADMIN'">
+                <i class="bi bi-pencil"></i>
+              </button>
+
+              <button *ngIf="userStateService.userState.role == 'CLIENT'" (click)="addToCard(product)" class="btn btn-info" [disabled]="product.quantity <= 0" placement="top" ngbTooltip="Add to cart">
+                <i class="bi bi-cart-plus-fill"></i>
+              </button>
+
+              <button (click)="showModalDeleteProduct(product.id.toString(), deleteProductModal)" class="btn btn-danger" placement="top" ngbTooltip="Delete product" *ngIf="userStateService.userState.role == 'ADMIN'">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </td>
         </tr>
         </tbody>
       </table>
-      <div class="card-footer" *ngIf="!isLoading && !isEmpty">
+      <div class="card-footer d-flex justify-content-between p-2" *ngIf="!isEmpty">
         <ngb-pagination
           class="d-flex justify-content-center"
           [(page)]="page"
@@ -87,7 +169,7 @@
           [rotate]="true"
           [boundaryLinks]="true"
         />
-        <select class="form-select" aria-label="Default select example" [(ngModel)]="this.size" (click)="sizeChanged()">
+        <select class="form-select border-0 shadow" [(ngModel)]="this.size" (ngModelChange)="sizeChanged()" style="width: auto">
           <option value="5">5</option>
           <option value="10">10</option>
           <option value="25">25</option>

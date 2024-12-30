@@ -2,13 +2,25 @@ package ma.dev7hd.ecomorderservice.services;
 
 import ma.dev7hd.ecomorderservice.entities.Order;
 import ma.dev7hd.ecomorderservice.entities.ProductItem;
+import ma.dev7hd.ecomorderservice.enums.OrderState;
 import ma.dev7hd.ecomorderservice.models.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface IOrderService {
-    ResponseEntity<List<Order>> getOrders();
+    ResponseEntity<Page<Order>> getOrders(String id,
+                                          OrderState orderState,
+                                          Double minPrice,
+                                          Double maxPrice,
+                                          Integer minQuantity,
+                                          Integer maxQuantity,
+                                          Integer minItemQuantity,
+                                          Integer maxItemQuantity,
+                                          int page,
+                                          int size);
 
     ResponseEntity<Order> getOrder(Long id);
 
@@ -22,7 +34,7 @@ public interface IOrderService {
 
     ResponseEntity<String> deliverOrder(Long orderId);
 
-    void printProducts();
-
     List<ProductItem> getProductItems();
+
+    Page<Order> getCustomerOrders(Pageable pageable);
 }

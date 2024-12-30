@@ -11,6 +11,7 @@ spring:
               - POST
               - PUT
               - DELETE
+              - PATCH
   application:
     name: gateway-service
   config:

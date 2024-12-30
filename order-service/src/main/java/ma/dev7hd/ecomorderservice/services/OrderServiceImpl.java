@@ -8,7 +8,11 @@ import ma.dev7hd.ecomorderservice.feignClients.InventoryClient;
 import ma.dev7hd.ecomorderservice.models.Product;
 import ma.dev7hd.ecomorderservice.repositories.OrderRepository;
 import ma.dev7hd.ecomorderservice.repositories.ProductItemsRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,14 +26,75 @@ public class OrderServiceImpl implements IOrderService {
     private final InventoryClient inventoryClient;
 
     /**
-     * Retrieves all orders from the database and returns them as a response entity.
+     * Retrieves a paginated list of orders based on various filtering criteria.
      *
-     * @return a ResponseEntity containing a list of all orders.
+     * @param id The identifier of the order(s) to retrieve, or null to retrieve orders without filtering by ID.
+     * @param orderState The state of the order(s) to filter by, or null to retrieve orders without filtering by state.
+     * @param minPrice The minimum price of the order(s) to retrieve, or null for no minimum price filter.
+     * @param maxPrice The maximum price of the order(s) to retrieve, or null for no maximum price filter.
+     * @param minQuantity The minimum total quantity of items in the order(s) to retrieve, or null for no minimum quantity filter.
+     * @param maxQuantity The maximum total quantity of items in the order(s) to retrieve, or null for no maximum quantity filter.
+     * @param minItemQuantity The minimum quantity of a single item in the order(s) to retrieve, or null for no minimum item quantity filter.
+     * @param maxItemQuantity The maximum quantity of a single item in the order(s) to retrieve, or null for no maximum item quantity filter.
+     * @param page The page number to retrieve, starting from 0.
+     * @param size The number of orders to retrieve per page.
+     * @return A ResponseEntity containing a Page of orders matching the filter criteria, or a bad request response if the filters are invalid.
      */
     @Override
-    public ResponseEntity<List<Order>> getOrders(){
-        List<Order> orders = orderRepository.findAll();
+    public ResponseEntity<Page<Order>> getOrders(
+            String id,
+            OrderState orderState,
+            Double minPrice,
+            Double maxPrice,
+            Integer minQuantity,
+            Integer maxQuantity,
+            Integer minItemQuantity,
+            Integer maxItemQuantity,
+            int page,
+            int size
+    ){
+        boolean hasInvalidValues = isValidPrice(minPrice, maxPrice)
+                || isValidQuantity(minQuantity, maxQuantity)
+                || isValidQuantity(minItemQuantity, maxItemQuantity);
+
+        if (hasInvalidValues) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Page<Order> orders = orderRepository.getOrdersByCriteria(
+                id,
+                orderState,
+                minPrice,
+                maxPrice,
+                minQuantity,
+                maxQuantity,
+                minItemQuantity,
+                maxItemQuantity,
+                Pageable.ofSize(size).withPage(page)
+        );
         return ResponseEntity.ok(orders);
+    }
+
+    /**
+     * Validates whether the given price range is valid.
+     *
+     * @param min the minimum price value to be validated
+     * @param max the maximum price value to be compared against the minimum
+     * @return true if both min and max are not null and min is greater than max, false otherwise
+     */
+    private boolean isValidPrice(Double min, Double max){
+        return min != null && max != null && min > max;
+    }
+
+    /**
+     * Checks if the provided quantity range is valid.
+     *
+     * @param min the minimum quantity, must not be null
+     * @param max the maximum quantity, must not be null
+     * @return true if the minimum quantity is greater than the maximum quantity, false otherwise
+     */
+    private boolean isValidQuantity(Integer min, Integer max){
+        return min != null && max != null && min > max;
     }
 
     /**
@@ -58,8 +123,20 @@ public class OrderServiceImpl implements IOrderService {
      */
     @Override
     public ResponseEntity<Order> createNewOrder(List<Product> products){
+        String currentCustomerName = getCurrentCustomerName();
+        Order order = Order.builder()
+                .customerName(currentCustomerName)
+                .totalItems(products.size())
+                .totalPrice(0)
+                .totalQuantity(0)
+                .build();
+        products.forEach(product -> {
+            order.setTotalPrice(order.getTotalPrice() + product.getPrice() * product.getQuantity());
+            order.setTotalQuantity(order.getTotalQuantity() + product.getQuantity());
+        });
 
-        Order savedOrder = orderRepository.save(new Order());
+        Order savedOrder = orderRepository.save(order);
+
         List<ProductItem> productItems = new ArrayList<>();
         products.parallelStream().forEach(product -> {
             Integer productQuantity = inventoryClient.decrementProductQuantity(product.getId(), product.getQuantity());
@@ -78,6 +155,11 @@ public class OrderServiceImpl implements IOrderService {
         });
         productItemsRepository.saveAll(productItems);
         return ResponseEntity.ok(savedOrder);
+    }
+
+    private String getCurrentCustomerName() {
+        Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return jwt.getClaims().get("preferred_username").toString();
     }
 
     /**
@@ -124,6 +206,7 @@ public class OrderServiceImpl implements IOrderService {
         Order order = orderRepository.findById(orderId).orElse(null);
 
         if (order != null && order.getOrderState() != OrderState.DELIVERED && order.getOrderState() != OrderState.CANCELLED){
+            order.getProductItems().forEach(productItem -> inventoryClient.incrementProductQuantity(productItem.getProductId(), productItem.getQuantity()));
             order.setOrderState(OrderState.CANCELLED);
             orderRepository.save(order);
             return ResponseEntity.ok("Order cancelled.");
@@ -155,18 +238,13 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
-    public void printProducts(){
-        ResponseEntity<List<Product>> allProducts = inventoryClient.getAllProducts();
-        if (allProducts.getStatusCode().is2xxSuccessful() && allProducts.getBody() != null){
-            List<Product> products = allProducts.getBody();
-            products.forEach(System.out::println);
-        } else {
-            System.out.println("Error: " + allProducts.getStatusCode());
-        }
+    public List<ProductItem> getProductItems(){
+        return productItemsRepository.findAll();
     }
 
     @Override
-    public List<ProductItem> getProductItems(){
-        return productItemsRepository.findAll();
+    public Page<Order> getCustomerOrders(Pageable pageable){
+        String currentCustomerName = getCurrentCustomerName();
+        return orderRepository.findByCustomerName(currentCustomerName, pageable);
     }
 }

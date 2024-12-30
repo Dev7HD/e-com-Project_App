@@ -1,1 +1,137 @@
-<p>orders works!</p>
+<div class="container mt-4">
+  <div *ngIf="this.userStateService.userState.role == 'ADMIN'" class="collapse" id="collapseFilter">
+    <div class="card card-body shadow border-0">
+      <h3>Find order by criteria:</h3>
+      <div class="form-group">
+        <div class="d-flex justify-content-between gap-3">
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="product-id">ID</span>
+            <input type="text" class="form-control" placeholder="ID" aria-label="ID" aria-describedby="product-id" [(ngModel)]="id">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="product-name">Order state</span>
+            <select [(ngModel)]="orderState" class="form-select" aria-label="Default select example">
+              <option selected>Select an order state</option>
+              <option [ngValue]="'NEW'">NEW</option>
+              <option [ngValue]="'PROCESSING'">PROCESSING</option>
+              <option [ngValue]="'DELIVERED'">DELIVERED</option>
+              <option [ngValue]="'CANCELLED'">CANCELLED</option>
+            </select>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between gap-3">
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="product-min-price">Min price</span>
+            <input type="text" class="form-control" placeholder="Min price" aria-label="Product min price" aria-describedby="product-min-price" [(ngModel)]="minPrice">
+            <span class="input-group-text" id="product-max-price">Max price</span>
+            <input type="text" class="form-control" placeholder="Max price" aria-label="Product max price" aria-describedby="product-max-price" [(ngModel)]="maxPrice">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="product-min-quantity">Min quantity</span>
+            <input type="text" class="form-control" placeholder="Min quantity" aria-label="Product min quantity" aria-describedby="product-min-quantity" [(ngModel)]="minQuantity">
+            <span class="input-group-text" id="product-max-quantity">Max quantity</span>
+            <input type="text" class="form-control" placeholder="Max quantity" aria-label="Product max quantity" aria-describedby="product-max-quantity" [(ngModel)]="maxQuantity">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="product-min-quantity-items">Min items count</span>
+            <input type="text" class="form-control" placeholder="Min items count" aria-label="Product min quantity items" aria-describedby="product-min-quantity-items" [(ngModel)]="minItemQuantity">
+            <span class="input-group-text" id="product-max-quantity-items">Max items count</span>
+            <input type="text" class="form-control" placeholder="Max items count" aria-label="Product max quantity items" aria-describedby="product-max-quantity-items" [(ngModel)]="maxItemQuantity">
+          </div>
+        </div>
+        <div class="d-flex justify-content-end gap-3">
+          <button class="btn btn-primary shadow border-0" type="button" [disabled]="isLoading" (click)="search()">
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+            <span *ngIf="isLoading" role="status">Loading...</span>
+            <span *ngIf="!isLoading" role="status">Search</span>
+          </button>
+          <button class="btn btn-outline-primary shadow border-0" type="button" (click)="reset()">Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card mt-3 shadow border-0">
+    <div class="card-header d-flex justify-content-between">
+      <div class="d-flex align-items-center">
+        <h3 class="me-2">Orders List</h3>
+        <div class="d-flex justify-content-center align-items-center gap-3">
+          <div *ngIf="isLoading" class="spinner-border text-info" style="width: 1.5rem; height: 1.5rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="userStateService.userState.role == 'ADMIN'">
+        <button class="btn btn-outline-primary shadow border-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+          Show/Hide Filters
+        </button>
+      </div>
+    </div>
+    <div class="card-body">
+      <ngb-alert *ngIf="isEmpty && !isLoading" [dismissible]="false" >
+        <strong>Oops!</strong> No order found.
+      </ngb-alert>
+      <table *ngIf="!isEmpty" class="table">
+        <thead>
+        <tr>
+          <th>State</th>
+          <th>Date</th>
+          <th>Total price</th>
+          <th>Total quantity</th>
+          <th>Total items</th>
+          <th *ngIf="userStateService.userState.role == 'ADMIN'">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let order of orders.content; let i = index">
+          <td>
+            <div [class]="order.orderState.toString() == 'NEW' ? 'badge text-bg-secondary' : order.orderState.toString() == 'PROCESSING' ? 'badge text-bg-primary' : order.orderState.toString() == 'DELIVERED' ? 'badge text-bg-success' : 'badge text-bg-danger'">
+              <i [class]="order.orderState.toString() == 'NEW' ? 'bi bi-hourglass-split' : order.orderState.toString() == 'PROCESSING' ? 'bi bi-check2' : order.orderState.toString() == 'DELIVERED' ? 'bi bi-check2-all' : 'bi bi-ban'"></i>
+              {{order.orderState}}
+            </div>
+          </td>
+          <td>{{order.orderDate | date}}</td>
+          <td>{{order.totalPrice}} DH</td>
+          <td>{{order.totalQuantity}}</td>
+          <td>{{order.totalItems}}</td>
+          <td *ngIf="userStateService.userState.role == 'ADMIN'" >
+            <button *ngIf="order.orderState.toString() == 'NEW'" (click)="confirmOrder(order)" class="btn btn-primary m-2 shadow border-0">
+              Confirm
+              <i class="bi bi-check"></i>
+            </button>
+            <button *ngIf="order.orderState.toString() == 'PROCESSING'" (click)="deliverOrder(order)" class="btn btn-success m-2 shadow border-0">
+              Deliver
+              <i class="bi bi-truck"></i>
+            </button>
+            <button *ngIf="order.orderState.toString() != 'CANCELLED' && order.orderState.toString() != 'DELIVERED'" (click)="cancelOrder(order)" class="btn btn-danger shadow border-0 m-2">
+              Cancel
+              <i class="bi bi-ban"></i>
+            </button>
+            <h5 *ngIf="order.orderState.toString() == 'DELIVERED'">
+              <span class="badge text-bg-success shadow border-0">
+                <i class="bi bi-check2-all"></i>
+              </span>
+            </h5>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="card-footer d-flex justify-content-between p-2" *ngIf="!isEmpty">
+        <ngb-pagination
+          class="d-flex justify-content-center"
+          [(page)]="page"
+          [pageSize]="orders.size"
+          [collectionSize]="orders.totalElements"
+          (pageChange)="pageChanged($event)"
+          [maxSize]="3"
+          [rotate]="true"
+          [boundaryLinks]="true"
+        />
+        <select class="form-select shadow border-0" [(ngModel)]="this.size" (ngModelChange)="sizeChanged()" style="width: auto">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="25">25</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>

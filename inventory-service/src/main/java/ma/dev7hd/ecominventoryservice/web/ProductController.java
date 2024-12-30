@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,6 +47,7 @@ public class ProductController {
      * @return a response entity containing the created product
      */
     @PostMapping(value = "/new", produces = "application/json")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     ResponseEntity<Product> createProduct(@RequestBody Product product) {
         return productService.addProduct(product);
     }
@@ -58,6 +60,7 @@ public class ProductController {
      * @return a ResponseEntity containing the updated product
      */
     @PatchMapping(value = "/{id}/update", produces = "application/json")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     ResponseEntity<Product> updateProduct(@PathVariable UUID id,@RequestBody Product product) {
         return productService.updateProduct(id, product);
     }
@@ -68,6 +71,7 @@ public class ProductController {
      * @param id the unique identifier of the product to be deleted
      */
     @DeleteMapping("/{id}/delete")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     void deleteProduct(@PathVariable UUID id) {
         productService.deleteProduct(id);
     }
@@ -79,8 +83,8 @@ public class ProductController {
      * @param quantity the amount by which the product quantity should be incremented
      * @return the updated quantity of the product after increment
      */
-    @PostMapping(value = "/{id}/increment-quantity", produces = "application/json")
-    Integer incrementProductQuantity(@PathVariable UUID id, @RequestParam Integer quantity) {
+    @PostMapping(value = "/{id}/increment-quantity/{quantity}", produces = "application/json")
+    Integer incrementProductQuantity(@PathVariable UUID id, @PathVariable Integer quantity) {
         return productService.incrementProductQuantity(id, quantity);
     }
 

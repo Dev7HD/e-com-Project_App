@@ -26,9 +26,9 @@ public interface InventoryClient {
     @CircuitBreaker(name = "inventory-service-1", fallbackMethod = "fallbackDecrementProductQuantity")
     Integer decrementProductQuantity(@PathVariable UUID id,@PathVariable Integer quantity);
 
-    @PostMapping("/api/products/{id}/increment-quantity")
+    @PostMapping("/api/products/{id}/increment-quantity/{quantity}")
     @CircuitBreaker(name = "inventory-service-2", fallbackMethod = "fallbackIncrementProductQuantity")
-    ResponseEntity<?> incrementProductQuantity(@PathVariable UUID id, int quantity);
+    Integer incrementProductQuantity(@PathVariable UUID id,@PathVariable Integer quantity);
 
     default ResponseEntity<?> fallbackIncrementProductQuantity(UUID id, int quantity, Exception e) {
         System.out.println("IncrementProductQuantity: Inventory service not available.");

@@ -13,6 +13,9 @@ import {
 } from 'keycloak-angular';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
+import {provideAnimations} from '@angular/platform-browser/animations';
+import {provideToastr} from 'ngx-toastr';
+import {DBConfig, ObjectStoreMeta, provideIndexedDb} from 'ngx-indexed-db';
 
 export const provideKeycloakAngular = () =>
   provideKeycloak({
@@ -34,9 +37,43 @@ export const provideKeycloakAngular = () =>
     providers: [AutoRefreshTokenService, UserActivityService]
   });
 
+const storeSchema: ObjectStoreMeta = {
+  store: 'items',
+  storeConfig: { keyPath: 'id', autoIncrement: false },
+  storeSchema: [
+    { name: 'id', keypath: 'id', options: {unique: true}},
+    { name: 'name', keypath: 'name', options: { unique: false } },
+    { name: 'description', keypath: 'description', options: { unique: false } },
+    { name: 'price', keypath: 'price', options: { unique: false } },
+    { name: 'quantityInCart', keypath: 'quantityInCart', options: { unique: false } },
+    { name: 'quantityInStorage', keypath: 'quantityInStorage', options: { unique: false } }
+  ]
+}
+
+const dbConfig: DBConfig  = {
+  name: 'ShoppingCartItems',
+  version: 10,
+  objectStoresMeta: [storeSchema]
+};
+
 export const appConfig: ApplicationConfig = {
   providers:
     [
+      provideIndexedDb(dbConfig),
+      provideAnimations(),
+      provideToastr({
+        closeButton: true,
+        timeOut: 3000,
+        progressBar: true,
+        progressAnimation: 'increasing',
+        positionClass: 'toast-top-right',
+        newestOnTop: true,
+        tapToDismiss: true,
+        maxOpened: 3,
+        autoDismiss: true,
+        easeTime: 300,
+
+      }),
       CookieService,
       provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync(),
       provideKeycloakAngular(),

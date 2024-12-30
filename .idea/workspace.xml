@@ -4,42 +4,46 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dcd082f5-5138-43db-9ed3-74900d57bef2" name="Changes" comment="Add e-commerce UI project setup with Keycloak integration&#10;&#10;This commit initializes the e-commerce UI project with Angular, adding Keycloak for authentication and role-based access. It includes core configurations, authentication guards, environment setups, and required dependencies such as Bootstrap and ngx-cookie-service.">
-      <change afterPath="$PROJECT_DIR$/e-com-ui/.editorconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/e-com-ui/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/e-com-ui/angular.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/e-com-ui/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/e-com-ui/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/e-com-ui/public/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/e-com-ui/public/silent-check-sso.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/app.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/app.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/app.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/app.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/app.config.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/app.routes.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/components/products/products.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/components/products/products.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/components/products/products.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/guards/auth-role.guard.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/guards/auth-role.guard.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/models/models.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/e-com-ui/src/environments/environment.development.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/e-com-ui/src/environments/environment.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/e-com-ui/src/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/e-com-ui/src/main.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/e-com-ui/src/styles.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/e-com-ui/tsconfig.app.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/e-com-ui/tsconfig.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/e-com-ui/tsconfig.spec.json" afterDir="false" />
+    <list default="true" id="dcd082f5-5138-43db-9ed3-74900d57bef2" name="Changes" comment="Add product and order management in e-com UI and services.&#10;&#10;Implemented dynamic product and order lists with filters, pagination, and API integration in the front end. Back end enhancements include product search functionality based on multiple criteria and improvements in service and repository layers to support the new features.">
+      <change afterPath="$PROJECT_DIR$/compose.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config-service/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discovery-service/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/models/order-page.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/models/order-state.enum.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/models/order.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/models/page.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/models/product-page.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/models/product.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/models/shopping-cart.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e-com-ui/src/app/models/shoppingCartItems.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gateway-service/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory-service/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e-com-ui/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/e-com-ui/angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e-com-ui/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/e-com-ui/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e-com-ui/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/e-com-ui/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e-com-ui/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/e-com-ui/src/app/app.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e-com-ui/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/e-com-ui/src/app/app.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e-com-ui/src/app/app.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/e-com-ui/src/app/app.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e-com-ui/src/app/app.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/e-com-ui/src/app/app.routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e-com-ui/src/app/components/orders/orders.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/e-com-ui/src/app/components/orders/orders.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e-com-ui/src/app/components/orders/orders.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/e-com-ui/src/app/components/orders/orders.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e-com-ui/src/app/components/products/products.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/e-com-ui/src/app/components/products/products.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e-com-ui/src/app/components/products/products.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/e-com-ui/src/app/components/products/products.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e-com-ui/src/app/models/models.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e-com-ui/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/e-com-ui/src/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway-service/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/h2-databases/inventory-service-h2-db.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/h2-databases/inventory-service-h2-db.mv.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/h2-databases/order-service-h2-db.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/h2-databases/order-service-h2-db.mv.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inventory-service/src/main/java/ma/dev7hd/ecominventoryservice/InventoryServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/src/main/java/ma/dev7hd/ecominventoryservice/InventoryServiceApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inventory-service/src/main/java/ma/dev7hd/ecominventoryservice/repositories/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/src/main/java/ma/dev7hd/ecominventoryservice/repositories/ProductRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inventory-service/src/main/java/ma/dev7hd/ecominventoryservice/services/IProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/src/main/java/ma/dev7hd/ecominventoryservice/services/IProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inventory-service/src/main/java/ma/dev7hd/ecominventoryservice/services/ProductServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/src/main/java/ma/dev7hd/ecominventoryservice/services/ProductServiceImp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inventory-service/src/main/java/ma/dev7hd/ecominventoryservice/web/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-service/src/main/java/ma/dev7hd/ecominventoryservice/web/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/ma/dev7hd/ecomorderservice/entities/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/ma/dev7hd/ecomorderservice/entities/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/ma/dev7hd/ecomorderservice/feignClients/InventoryClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/ma/dev7hd/ecomorderservice/feignClients/InventoryClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/ma/dev7hd/ecomorderservice/repositories/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/ma/dev7hd/ecomorderservice/repositories/OrderRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/ma/dev7hd/ecomorderservice/services/IOrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/ma/dev7hd/ecomorderservice/services/IOrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/ma/dev7hd/ecomorderservice/services/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/ma/dev7hd/ecomorderservice/services/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/ma/dev7hd/ecomorderservice/web/OrderRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/ma/dev7hd/ecomorderservice/web/OrderRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,8 +73,9 @@
         <option value="Enum" />
         <option value="Interface" />
         <option value="HTML File" />
-        <option value="TypeScript File" />
         <option value="Class" />
+        <option value="TypeScript File" />
+        <option value="Dockerfile" />
       </list>
     </option>
   </component>
@@ -98,38 +103,43 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;Spring Boot.ConfigServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.DiscoveryServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.GatewayServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.InventoryServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.OrderServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/dev7hd/Devloppement/IdeaProjects/e-com-Project_App&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_interpreter_path&quot;: &quot;/home/dev7hd/.nvm/versions/node/v22.12.0/bin/node&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2992874&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/home/dev7hd/Devloppement/IdeaProjects/e-com-Project_App/e-com-ui/node_modules/typescript/lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Docker.compose.yaml: Compose Deployment.executor": "Run",
+    "Maven.e-com-config-service [clean].executor": "Run",
+    "Maven.e-com-config-service [package].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.ConfigServiceApplication.executor": "Run",
+    "Spring Boot.DiscoveryServiceApplication.executor": "Run",
+    "Spring Boot.GatewayServiceApplication.executor": "Run",
+    "Spring Boot.InventoryServiceApplication.executor": "Run",
+    "Spring Boot.OrderServiceApplication.executor": "Run",
+    "git-widget-placeholder": "master",
+    "js.last.introduce.type": "LET",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/dev7hd/Devloppement/IdeaProjects/e-com-Project_App/discovery-service",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "/home/dev7hd/.nvm/versions/node/v22.12.0/bin/node",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2992874",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "terminal",
+    "ts.external.directory.path": "/home/dev7hd/Devloppement/IdeaProjects/e-com-Project_App/e-com-ui/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -139,9 +149,11 @@
       <recent name="ma.dev7hd.ecomorderservice.enums" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/discovery-service" />
+      <recent name="$PROJECT_DIR$/config-service" />
+      <recent name="$PROJECT_DIR$/gateway-service" />
+      <recent name="$PROJECT_DIR$/inventory-service" />
       <recent name="$PROJECT_DIR$/order-service/src/main/java/ma/dev7hd/ecomorderservice/security" />
-      <recent name="$PROJECT_DIR$/inventory-service/src/main/java/ma/dev7hd/ecominventoryservice" />
-      <recent name="$PROJECT_DIR$/gateway-service/src/main/resources" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="ma.dev7hd.ecomorderservice.config" />
@@ -157,7 +169,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.InventoryServiceApplication">
+  <component name="RunManager" selected="Docker.compose.yaml: Compose Deployment">
     <configuration name="ConfigServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="e-com-config-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="ma.dev7hd.ecomconfigservice.ConfigServiceApplication" />
@@ -193,13 +205,31 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml" />
+      <method v="2" />
+    </configuration>
+    <configuration name="compose.yaml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="compose.yaml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <list>
+      <item itemvalue="Docker.compose.yaml: Compose Deployment" />
       <item itemvalue="Spring Boot.DiscoveryServiceApplication" />
       <item itemvalue="Spring Boot.ConfigServiceApplication" />
       <item itemvalue="Spring Boot.GatewayServiceApplication" />
       <item itemvalue="Spring Boot.InventoryServiceApplication" />
       <item itemvalue="Spring Boot.OrderServiceApplication" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Docker.compose.yaml: Compose Deployment" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -224,7 +254,13 @@
       <workItem from="1734978692694" duration="12949000" />
       <workItem from="1735060923416" duration="14737000" />
       <workItem from="1735149369848" duration="11035000" />
-      <workItem from="1735160568326" duration="3355000" />
+      <workItem from="1735160568326" duration="4252000" />
+      <workItem from="1735235302081" duration="17775000" />
+      <workItem from="1735318089418" duration="12942000" />
+      <workItem from="1735398460187" duration="19095000" />
+      <workItem from="1735473272112" duration="2252000" />
+      <workItem from="1735501853117" duration="8068000" />
+      <workItem from="1735580533984" duration="16080000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <option name="closed" value="true" />
@@ -242,7 +278,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734991981127</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Add product and order management in e-com UI and services.&#10;&#10;Implemented dynamic product and order lists with filters, pagination, and API integration in the front end. Back end enhancements include product search functionality based on multiple criteria and improvements in service and repository layers to support the new features.">
+      <option name="closed" value="true" />
+      <created>1735164820913</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1735164820913</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -253,7 +297,8 @@
     <MESSAGE value="Add README.md file." />
     <MESSAGE value="Implement keycloak in the UI" />
     <MESSAGE value="Add e-commerce UI project setup with Keycloak integration&#10;&#10;This commit initializes the e-commerce UI project with Angular, adding Keycloak for authentication and role-based access. It includes core configurations, authentication guards, environment setups, and required dependencies such as Bootstrap and ngx-cookie-service." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add e-commerce UI project setup with Keycloak integration&#10;&#10;This commit initializes the e-commerce UI project with Angular, adding Keycloak for authentication and role-based access. It includes core configurations, authentication guards, environment setups, and required dependencies such as Bootstrap and ngx-cookie-service." />
+    <MESSAGE value="Add product and order management in e-com UI and services.&#10;&#10;Implemented dynamic product and order lists with filters, pagination, and API integration in the front end. Back end enhancements include product search functionality based on multiple criteria and improvements in service and repository layers to support the new features." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add product and order management in e-com UI and services.&#10;&#10;Implemented dynamic product and order lists with filters, pagination, and API integration in the front end. Back end enhancements include product search functionality based on multiple criteria and improvements in service and repository layers to support the new features." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
